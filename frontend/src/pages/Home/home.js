@@ -1,8 +1,8 @@
 import React from "react";
-import { RiProductHuntLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "./home.scss";
-import heroImg from "../../assets/inv-img.png";
+import logo from "../../assets/logo-white.png";
+import heroImg from "../../assets/undraw_doctors_p6aq.svg";
 import { ShowOnLogin, ShowOnLogout } from "../../components/protect/HiddenLink";
 
 
@@ -11,26 +11,26 @@ const Home = () => {
       <div className="home">
         <nav className="container --flex-between ">
           <div className="logo">
-            <RiProductHuntLine size={35} />
+            <img className="logo1" src={logo} alt="logo" />
           </div>
   
           <ul className="home-links">
             <ShowOnLogout>
               <li>
-                <Link to="/register">Register</Link>
+                <Link to="/register">Registrar</Link>
               </li>
             </ShowOnLogout>
             <ShowOnLogout>
               <li>
-                <button className="--btn --btn-primary">
-                  <Link to="/login">Login</Link>
+                <button className="--btn --btn-primary ">
+                  <Link to="/login">Acceder</Link>
                 </button>
               </li>
             </ShowOnLogout>
             <ShowOnLogin>
               <li>
                 <button className="--btn --btn-primary">
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">Panel</Link>
                 </button>
               </li>
             </ShowOnLogin>
@@ -39,20 +39,19 @@ const Home = () => {
         {/* HERO SECTION */}
         <section className="container hero">
           <div className="hero-text">
-            <h2>Inventory {"&"} Stock Management Solution</h2>
+            <h2>Inventario {"&"} Almacenamiento de datos</h2>
             <p>
-              Inventory system to control and manage proucts in the warehouse in
-              real timeand integrated to make it easier to develop your business.
+            Sistema de inventario para controlar y gestionar los pacientes en tiempo real e integrado para facilitar el desarrollo de tu negocio.
             </p>
             <div className="hero-buttons">
               <button className="--btn --btn-secondary">
-                <Link to="/dashboard">Free Trial 1 Month</Link>
+                <Link to="/dashboard">Pruebalo ya!</Link>
               </button>
             </div>
             <div className="--flex-start">
-              <NumberText num="14K" text="Brand Owners" />
-              <NumberText num="23K" text="Active Users" />
-              <NumberText num="500+" text="Partners" />
+              <NumberText num="1K" text="Propietarios de marca" />
+              <NumberText num="2K" text="Usuarios Activos" />
+              <NumberText num="500+" text="Socios" />
             </div>
           </div>
   

@@ -70,12 +70,12 @@ const Register = () => {
           <div className="--flex-center">
             <TiUserAddOutline size={35} color="#999" />
           </div>
-          <h2>Register</h2>
+          <h2>Registrarse</h2>
 
           <form onSubmit={register}>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Nombre"
               required
               name="name"
               value={name}
@@ -91,7 +91,7 @@ const Register = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               required
               name="password"
               value={password}
@@ -99,21 +99,21 @@ const Register = () => {
             />
             <input
               type="password"
-              placeholder="Confirm Password"
+              placeholder="Confirma Contraseña"
               required
               name="password2"
               value={password2}
               onChange={handleInputChange}
             />
             <button type="submit" className="--btn --btn-primary --btn-block">
-              Register
+              Registrarse
             </button>
           </form>
 
           <span className={styles.register}>
-            <Link to="/">Home</Link>
-            <p> &nbsp; Already have an account? &nbsp;</p>
-            <Link to="/login">Login</Link>
+            <Link to="/">Inicio</Link>
+            <p> &nbsp; Tienes una cuenta? &nbsp;</p>
+            <Link to="/login">Iniciar sesión</Link>
           </span>
         </div>
       </Card>

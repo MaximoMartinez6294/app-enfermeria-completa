@@ -1,14 +1,12 @@
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import Card from "../../card/Card";
 import productService from "../../../redux/features/product/productService";
 import { toast } from "react-toastify";
 
-import "./ProductForm.scss";
+import "../productForm/ProductForm copy.scss";
 
-const ProductForm = () => {
+const ProductFormCopy = ({ productToEdit }) => {
   const [product, setProduct] = useState({
     name: "",
     estado: "",
@@ -22,15 +20,33 @@ const ProductForm = () => {
     observaciones: "",
     insumos: "",
   });
+  console.log("productToEdit en EditProduct:", productToEdit);
 
-
+  useEffect(() => {
+    if (productToEdit) {
+      // Si hay un producto para editar, establece los valores del formulario con los datos del producto
+      setProduct({
+        name: productToEdit.name || "",
+        estado: productToEdit.estado || "",
+        direccion: productToEdit.direccion || "",
+        telefono: productToEdit.telefono || "",
+        horasDeCuidador: productToEdit.horasDeCuidador || "",
+        turnos: productToEdit.turnos || "",
+        cuidadores: productToEdit.cuidadores || "",
+        ved: productToEdit.ved || "",
+        enfermeros: productToEdit.enfermeros || "",
+        observaciones: productToEdit.observaciones || "",
+        insumos: productToEdit.insumos || "",
+      });
+    }
+  }, [productToEdit]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };
 
-  const saveProduct = async (event) => {
+  const updateProduct = async (event) => {
     event.preventDefault();
 
     try {
@@ -49,13 +65,14 @@ const ProductForm = () => {
         insumos: product.insumos,
       };
 
-      console.log("Datos del formulario:", formData);
-
-      // Llamar a createProduct para enviar los datos al servidor
-      const response = await productService.createProduct(formData);
-
-      // Manejar la respuesta del servidor (puede ser una notificación de éxito)
-      console.log('Respuesta del servidor:', response);
+      if (productToEdit) {
+        // Si estamos editando un producto, utiliza productService.updateProduct
+        const response = await productService.updateProduct(productToEdit._id, formData);
+        console.log('Respuesta del servidor (actualización):', response);
+        toast.success("El paciente se ha actualizado con éxito");
+      } else {
+        toast.error("No se ha proporcionado un producto para editar.");
+      }
 
       // Limpiar el formulario o realizar cualquier otra acción después de guardar
       setProduct({
@@ -71,23 +88,18 @@ const ProductForm = () => {
         observaciones: "",
         insumos: "",
       });
-
-      // Mostrar una notificación de éxito
-      toast.success("El paciente se ha creado con éxito");
     } catch (error) {
       // Manejar los errores, como mostrar un mensaje de error
       console.error('Error al enviar el formulario:', error);
-
-      // Mostrar una notificación de error
-      toast.error("Hubo un error al crear el paciente");
+      toast.error("Hubo un error al actualizar el paciente");
     }
   };
 
   return (
-    <div className="add-product">
+    <div className="update-product">
     <Card cardClass={"card"}>
-      <form onSubmit={saveProduct}>
-        <label>Nombre del paciente:</label>
+      <form onSubmit={updateProduct}>
+        <label>Nombre del pacientes:</label>
         <input
           type="text"
           placeholder="Nombre de paciente"
@@ -95,7 +107,7 @@ const ProductForm = () => {
           value={product?.name}
           onChange={handleInputChange}
         />
-
+          
          <label> Estado: </label>
         <input
           type="text"
@@ -184,6 +196,7 @@ const ProductForm = () => {
           value={product?.insumos}
           onChange={handleInputChange}
         />
+        
           
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">
@@ -197,7 +210,7 @@ const ProductForm = () => {
 };
 
 
-ProductForm.modules = {
+ProductFormCopy.modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
@@ -213,7 +226,7 @@ ProductForm.modules = {
     ["clean"],
   ],
 };
-ProductForm.formats = [
+ProductFormCopy.formats = [
   "header",
   "font",
   "size",
@@ -234,4 +247,4 @@ ProductForm.formats = [
   "align",
 ];
 
-export default ProductForm;
+export default ProductFormCopy;

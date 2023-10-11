@@ -8,6 +8,7 @@ import "./Profile.scss";
 import { toast } from "react-toastify";
 import { updateUser } from "../../services/authService";
 import ChangePassword from "../../components/changePassword/ChangePassword";
+import  Perfil  from "../../assets/profile.jpg"
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -52,18 +53,7 @@ const EditProfile = () => {
           profileImage.type === "image/jpg" ||
           profileImage.type === "image/png")
       ) {
-        const image = new FormData();
-        image.append("file", profileImage);
-        image.append("cloud_name", "zinotrust");
-        image.append("upload_preset", "wk66xdkq");
-
-        // First save image to cloudinary
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/zinotrust/image/upload",
-          { method: "post", body: image }
-        );
-        const imgData = await response.json();
-        imageURL = imgData.url.toString();
+      
 
         // Save Profile
         const formData = {
@@ -92,12 +82,12 @@ const EditProfile = () => {
 
       <Card cardClass={"card --flex-dir-column"}>
         <span className="profile-photo">
-          <img src={user?.photo} alt="profilepic" />
+          <img src={Perfil} alt="profilepic" />
         </span>
         <form className="--form-control --m" onSubmit={saveProfile}>
           <span className="profile-data">
             <p>
-              <label>Name:</label>
+              <label>Nombre:</label>
               <input
                 type="text"
                 name="name"
@@ -109,10 +99,10 @@ const EditProfile = () => {
               <label>Email:</label>
               <input type="text" name="email" value={profile?.email} disabled />
               <br />
-              <code>Email cannot be changed.</code>
+              <code>El Email nose puede cambiar.</code>
             </p>
             <p>
-              <label>Phone:</label>
+              <label>Telefono:</label>
               <input
                 type="text"
                 name="phone"
@@ -121,7 +111,7 @@ const EditProfile = () => {
               />
             </p>
             <p>
-              <label>Bio:</label>
+              <label>Biografia:</label>
               <textarea
                 name="bio"
                 value={profile?.bio}
@@ -131,7 +121,7 @@ const EditProfile = () => {
               ></textarea>
             </p>
             <p>
-              <label>Photo:</label>
+              <label>Foto:</label>
               <input type="file" name="image" onChange={handleImageChange} />
             </p>
             <div>

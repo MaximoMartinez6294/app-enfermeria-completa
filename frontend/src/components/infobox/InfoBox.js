@@ -1,5 +1,5 @@
 import React from "react";
-import "./InfoBox.scss";
+import "../infobox/Infobox.scss";
 
 const InfoBox = ({ bgColor, title, count, icon }) => {
   return (

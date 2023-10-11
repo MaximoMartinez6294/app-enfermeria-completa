@@ -10,8 +10,8 @@ const {
 } = require("../controllers/productController");
 
 
-router.post("/createProduct", protect, createProduct);
-router.patch("/:id", protect, updateProduct);
+router.post("/add-product", protect, createProduct);
+router.patch("/updateProduct/:id", protect, updateProduct);
 router.get("/", protect, getProducts);
 router.get("/:id", protect, getProduct);
 router.delete("/:id", protect, deleteProduct);

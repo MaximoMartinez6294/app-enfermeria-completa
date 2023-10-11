@@ -1,6 +1,8 @@
 .home {
-    background-color: #030b6b;
+  
+    background-color: #6069ce;
     min-height: 100vh;
+    overflow-y: hidden;
   
     & nav {
       padding-top: 1.5rem;
@@ -8,8 +10,16 @@
       color: #fff;
       & > .logo {
         color: #fff;
+        width: 100px;
       }
     }
+  }
+
+  
+
+  .logo1 {
+    width: 70px;
+    margin-top: 20px;
   }
   .home-links {
     display: flex;
@@ -44,7 +54,10 @@
     }
   }
   .hero-image {
-    width: 50%;
+    width: 70%;
+    margin-top: 50px;
+    margin-left: -20px;
+    overflow: hidden;
   }
   @media screen and (max-width: 600px) {
     .hero {
@@ -61,7 +74,8 @@
       text-align: center;
     }
     .hero-image {
-      width: 100%;
+      width: 750px;
+      margin-left: 45px;
       &img {
         width: 100%;
       }

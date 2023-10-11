@@ -12,17 +12,22 @@ const productSchema = mongoose.Schema(
       required: [true, "Porfavor agrega un nombre"],
       trim: true,
     },
-    sku: {
-      type: String,
-      required: true,
-      default: "SKU",
-      trim: true,
-    },
     estado: {
       type: String,
       required: [true, "Porfavor agrega un estado"],
       trim: true,
     },
+    direccion: {
+      type: String,
+      required: [true, "Porfavor agrega una direccion"],
+      trim: true,
+    },
+    telefono: {
+      type: String,
+      required: [true, "Porfavor agrega un telefono"],
+      trim: true,
+    },
+
     horasDeCuidador: {
       type: String,
       required: [true, "Porfavor agrega horas de cuidador"],

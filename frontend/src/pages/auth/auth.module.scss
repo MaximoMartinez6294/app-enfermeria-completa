@@ -14,7 +14,7 @@
       animation: slide-up 0.5s ease;
       background-color: #fff;
       h2 {
-        color: var(--color-danger);
+        color: #6069ce;
         text-align: center;
       }
       form {
@@ -39,7 +39,7 @@
           }
   
           &:focus:invalid {
-            border-bottom: 3px solid #ff7730;
+            border-bottom: 3px solid #6069ce;
           }
         }
         .links {

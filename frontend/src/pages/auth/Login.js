@@ -62,7 +62,7 @@ const Login = () => {
           <div className="--flex-center">
             <BiLogIn size={35} color="#999" />
           </div>
-          <h2>Login</h2>
+          <h2>Iniciar sesión</h2>
 
           <form onSubmit={login}>
             <input
@@ -75,22 +75,22 @@ const Login = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               required
               name="password"
               value={password}
               onChange={handleInputChange}
             />
             <button type="submit" className="--btn --btn-primary --btn-block">
-              Login
+             Iniciar sesión
             </button>
           </form>
-          <Link to="/forgot">Forgot Password</Link>
+          <Link to="/forgot">Me olvide la contraseña</Link>
 
           <span className={styles.register}>
-            <Link to="/">Home</Link>
-            <p> &nbsp; Don't have an account? &nbsp;</p>
-            <Link to="/register">Register</Link>
+            <Link to="/">Inicio</Link>
+            <p> &nbsp; No tienes una cuenta? &nbsp;</p>
+            <Link to="/register">Registrate</Link>
           </span>
         </div>
       </Card>

@@ -6,9 +6,16 @@ const API_URL = `${BACKEND_URL}/api/products/`;
 
 // Create New Product
 const createProduct = async (formData) => {
-  const response = await axios.post(API_URL, formData);
+  const response = await axios.post(`${API_URL}add-product`, formData);
+  
+  
   return response.data;
+  
+  
 };
+
+console.log('API_URL:', API_URL);
+
 
 // Get all products
 const getProducts = async () => {
@@ -28,7 +35,7 @@ const getProduct = async (id) => {
 };
 // Update Product
 const updateProduct = async (id, formData) => {
-  const response = await axios.patch(`${API_URL}${id}`, formData);
+  const response = await axios.patch(`${API_URL}updateProduct/${id}`, formData);
   return response.data;
 };
 

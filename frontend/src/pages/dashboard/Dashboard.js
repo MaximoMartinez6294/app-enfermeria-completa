@@ -16,12 +16,13 @@ const Dashboard = () => {
   );
 
   useEffect(() => {
+    console.log("Entrando en useEffect"); // Agrega esto al principio de useEffect
     if (isLoggedIn === true) {
       dispatch(getProducts());
     }
-
+  
     if (isError) {
-      console.log(message);
+      console.log("Algo salió mal"); // Agrega esto después de la condición isError
     }
   }, [isLoggedIn, isError, message, dispatch]);
 

@@ -9,17 +9,22 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  totalStoreValue: 0,
-  outOfStock: 0,
   category: [],
 };
 
 // Create New Product
 export const createProduct = createAsyncThunk(
-  "products/create",
+  "products/add-product",
   async (formData, thunkAPI) => {
     try {
-      return await productService.createProduct(formData);
+      // Realiza la solicitud POST al servidor para crear un nuevo producto
+      const response = await productService.createProduct(formData);
+
+      // El servidor debe devolver los datos del nuevo producto creado
+      const newProduct = response.data;
+
+      // Retorna los nuevos datos del producto para actualizar el estado
+      return newProduct;
     } catch (error) {
       const message =
         (error.response &&
@@ -27,7 +32,8 @@ export const createProduct = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
+
+      // Si la solicitud falla, rechaza la acción con el mensaje de error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -155,26 +161,31 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createProduct.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(createProduct.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.isError = false;
-        console.log(action.payload);
-        state.products.push(action.payload);
-        toast.success("Product added successfully");
-      })
-      .addCase(createProduct.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        toast.error(action.payload);
-      })
-      .addCase(getProducts.pending, (state) => {
-        state.isLoading = true;
-      })
+    .addCase(createProduct.pending, (state) => {
+      // Marca que la solicitud está en progreso si lo necesitas
+      state.isLoading = true;
+    })
+    .addCase(createProduct.fulfilled, (state, action) => {
+      // Marca que la solicitud se completó con éxito
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+
+      // Agrega el nuevo producto a la lista de productos en el estado
+      state.products.push(action.payload);
+
+      // Muestra una notificación de éxito
+      toast.success("El producto se ha creado con éxito");
+    })
+    .addCase(createProduct.rejected, (state, action) => {
+      // Marca que la solicitud ha sido rechazada y almacena el mensaje de error
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+
+      // Muestra una notificación de error
+      toast.error(action.payload);
+    })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
@@ -195,7 +206,7 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success("Product deleted successfully");
+        toast.success("Paciente eliminado");
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.isLoading = false;
@@ -225,7 +236,7 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success("Product updated successfully");
+        toast.success("Paciente actualizado");
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.isLoading = false;
