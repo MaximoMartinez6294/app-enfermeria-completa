@@ -102,8 +102,8 @@ const ProductList = ({ products, isLoading }) => {
             <p>-- Porfavor agregar un nuevo paciente.</p>
           ) : (
             <table>
-              <thead>
-                <tr>
+              <thead >
+                <tr className="A">
                   <th>s/n</th>
                   <th>Name</th>
                   <th>Estado</th>
@@ -182,11 +182,11 @@ const ProductList = ({ products, isLoading }) => {
         </div>
         <ReactPaginate
           breakLabel="..."
-          nextLabel="Next"
+          nextLabel="Siguiente"
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           pageCount={pageCount}
-          previousLabel="Prev"
+          previousLabel="Anterior"
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           pageLinkClassName="page-num"

@@ -41,11 +41,11 @@ const initialState = {
     return (
       <div className="change-password">
         <Card cardClass={"password-card"}>
-          <h3>Change Password</h3>
+          <h3>Cambiar contraseña</h3>
           <form onSubmit={changePass} className="--form-control">
             <input
               type="password"
-              placeholder="Old Password"
+              placeholder="Contraseña antigua"
               required
               name="oldPassword"
               value={oldPassword}
@@ -53,7 +53,7 @@ const initialState = {
             />
             <input
               type="password"
-              placeholder="New Password"
+              placeholder="Nueva contraseña"
               required
               name="password"
               value={password}
@@ -61,7 +61,7 @@ const initialState = {
             />
             <input
               type="password"
-              placeholder="Confirm New Password"
+              placeholder="Confirmar nueva contraseña"
               required
               name="password2"
               value={password2}
