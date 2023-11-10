@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { SpinnerImg } from "../../loader/Loader";
-import "./ProductList.scss";
+import "../enfermeroList/enfermeroList.scss"
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import Search from "../../search/Search";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
-  FILTER_PRODUCTS,
-  selectFilteredPoducts,
-} from "../../../redux/features/product/filterSlice";
+    FILTER_ENFERMEROS,
+    selectFilteredEnfermeros,
+} from "../../../redux/features/enfermero/filterSlice3"
 import ReactPaginate from "react-paginate";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
-  deleteProduct,
-  getProducts,
-} from "../../../redux/features/product/productSlice";
+    deleteEnfermero,
+    getEnfermeros,
+} from "../../../redux/features/enfermero/enfermeroSlice"
 import { Link } from "react-router-dom";
 
-const ProductList = ({ products, isLoading }) => {
+const EnfermeroList = ({ enfermeros, isLoading }) => {
   const [search, setSearch] = useState("");
-  const filteredProducts = useSelector(selectFilteredPoducts);
+  const filteredEnfermeros = useSelector(selectFilteredEnfermeros);
 
   const dispatch = useDispatch();
 
@@ -32,10 +33,12 @@ const ProductList = ({ products, isLoading }) => {
     return text;
   };
 
-  const delProduct = async (id) => {
+  console.log("enfermeros:", enfermeros); // Agrega este console.log
+
+  const delEnfermero = async (id) => {
     console.log(id);
-    await dispatch(deleteProduct(id));
-    await dispatch(getProducts());
+    await dispatch(deleteEnfermero(id));
+    await dispatch(getEnfermeros());
   };
 
   const confirmDelete = (id) => {
@@ -45,7 +48,7 @@ const ProductList = ({ products, isLoading }) => {
       buttons: [
         {
           label: "Eliminar",
-          onClick: () => delProduct(id),
+          onClick: () => delEnfermero(id),
         },
         {
           label: "Cancelar",
@@ -62,29 +65,36 @@ const ProductList = ({ products, isLoading }) => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
+    console.log("filteredEnfermeros:", filteredEnfermeros); // Agrega este console.log
 
-    setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, filteredProducts]);
+    const endOffset = itemOffset + itemsPerPage;
+    if (filteredEnfermeros && Array.isArray(filteredEnfermeros) && filteredEnfermeros.length > 0) {
+      setCurrentItems(filteredEnfermeros.slice(itemOffset, endOffset));
+      setPageCount(Math.ceil(filteredEnfermeros.length / itemsPerPage));
+    } else {
+      // En caso de que filteredCuidadores no sea válido, puedes manejarlo aquí
+      setCurrentItems([]);
+      setPageCount(0);
+    }
+  }, [itemOffset, itemsPerPage, filteredEnfermeros]);
+  console.log("currentItems:", currentItems); // Agrega este console.log
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredEnfermeros.length;
     setItemOffset(newOffset);
   };
   //   End Pagination
 
   useEffect(() => {
-    dispatch(FILTER_PRODUCTS({ products, search }));
-  }, [products, search, dispatch]);
+    dispatch(FILTER_ENFERMEROS({ enfermeros, search }));
+  }, [enfermeros, search, dispatch]);
 
   return (
-    <div className="product-list">
-      <hr />
-      <div className="table">
+    <div className="enfermero-list">
+      <div className="table" id="no-more-tables">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Pacientes</h3>
+            <h3>ENFERMEROS</h3>
           </span>
           <span>
             <Search
@@ -97,71 +107,41 @@ const ProductList = ({ products, isLoading }) => {
         {isLoading && <SpinnerImg />}
 
         <div className="table">
-          {!isLoading && products.length === 0 ? (
-            console.log("a"),
-            <p>-- Porfavor agregar un nuevo paciente.</p>
+          {!isLoading && enfermeros.length === 0 ? (
+            console.log("arranca"),
+            <p>-- Porfavor agregar un nuevo enfermero.</p>
           ) : (
             <table>
-              <thead >
-                <tr className="A">
+              <thead>
+                <tr>
                   <th>s/n</th>
                   <th>Name</th>
-                  <th>Estado</th>
-                  <th>Direccion</th>
                   <th>Telefono</th>
-                  <th>HorasDeCuidador</th>
-                  <th>Turnos</th>
-                  <th>Cuidadores</th>
-                  <th>Ved</th>
-                  <th>Enfermeros</th>
-                  <th>Observaciones</th>
-                  <th>Insumos</th>
+                  <th>Paciente</th>
                 </tr>
               </thead>
-
               <tbody>
-                {currentItems.map((product, index) => {
+                {currentItems.map((enfermero, index) => {
                   const { 
                     _id, 
                     name,
-                    estado,
-                    direccion,
                     telefono,
-                    horasDeCuidador, 
-                    turnos, 
-                    cuidadores, 
-                    ved, 
-                    enfermeros,
-                    observaciones,
-                    insumos, 
-                  } = product;
+                    paciente, 
+                  } = enfermero;
                   return (
                     <tr key={_id}>
-                      <td>{index + 1}</td>
-                      <td>{shortenText(name, 16)}</td>
-                      <td>{estado}</td>
-                      <td>{direccion}</td>
-                      <td>{telefono}</td>
-                      <td>
-                        {horasDeCuidador}
-                      </td>
-                      <td>
-                        {turnos}
-                      </td>
-                      <td>{cuidadores}</td>
-                      <td>{ved}</td>
-                      <td>{enfermeros}</td>
-                      <td>{observaciones}</td>
-                      <td>{insumos}</td>
-
+                      <td data-title="S/N">{index + 1}</td>
+                      <td data-title="Nombre"><b>{shortenText(name, 16)}</b></td>
+                      <td data-title="Telefono">{telefono}</td>
+                      <td data-title="Paciente">{paciente}</td>
                       <td className="icons">
                         <span>
-                          <Link to={`/product-detail/${_id}`}>
+                          <Link to={`/enfermero-detail/${_id}`}>
                             <AiOutlineEye size={25} color={"purple"} />
                           </Link>
                         </span>
                         <span>
-                          <Link to={`/edit-product/${_id}`}>
+                          <Link to={`/edit-enfermero/${_id}`}>
                             <FaEdit size={20} color={"green"} />
                           </Link>
                         </span>
@@ -199,4 +179,4 @@ const ProductList = ({ products, isLoading }) => {
   );
 };
 
-export default ProductList;
+export default EnfermeroList;

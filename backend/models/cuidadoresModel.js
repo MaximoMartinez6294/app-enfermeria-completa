@@ -33,5 +33,5 @@ const cuidadoresSchema = mongoose.Schema(
   }
 );
 
-const Cuidadores = mongoose.model("Cuidadores", cuidadoresSchema);
-module.exports = Cuidadores;
+const Cuidador = mongoose.model("Cuidadores", cuidadoresSchema);
+module.exports = Cuidador;

@@ -62,12 +62,12 @@ const getProduct = asyncHandler(async (req, res) => {
 const getEnfermero = asyncHandler(async (req, res) => {
   const enfermero = await Enfermeros.findById(req.params.id);
   
-  // if product doesnt exist
+  // if Enfermero doesnt exist
   if (!enfermero) {
     res.status(404);
     throw new Error("Enfermero no encontrado");
   }
-  // Match product to its user
+  // Match Enfermero to its user
   if (enfermero.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Enfermero no encontrado");
@@ -78,12 +78,12 @@ const getEnfermero = asyncHandler(async (req, res) => {
 // Delete Enfermero
 const deleteEnfermero = asyncHandler(async (req, res) => {
   const enfermero = await Enfermeros.findById(req.params.id);
-  // if product doesnt exist
+  // if Enfermero doesnt exist
   if (!enfermero) {
     res.status(404);
     throw new Error("Enfermero no encontrado");
   }
-  // Match product to its user
+  // Match Enfermero to its user
   if (enfermero.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Enfermero no encontrado");
@@ -92,7 +92,7 @@ const deleteEnfermero = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Enfermero eliminado" });
 });
 
-// Update Product
+// Update Enfermero
 const updateEnfermero = asyncHandler(async (req, res) => {
   const { name,
     telefono,
@@ -102,12 +102,12 @@ const updateEnfermero = asyncHandler(async (req, res) => {
 
   const enfermero = await Enfermeros.findById(id);
 
-  // if product doesnt exist
+  // if Enfermero doesnt exist
   if (!enfermero) {
     res.status(404);
     throw new Error("Enfermero no encontrado");
   }
-  // Match product to its user
+  // Match Enfermero to its user
   if (enfermero.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Enfermero no encontrado");
@@ -115,7 +115,7 @@ const updateEnfermero = asyncHandler(async (req, res) => {
 
 
 
-  // Update Product
+  // Update Enfermero
   const updateEnfermero = await Enfermeros.findByIdAndUpdate(
     { _id: id },
     {

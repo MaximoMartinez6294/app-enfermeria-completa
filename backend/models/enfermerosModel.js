@@ -28,5 +28,5 @@ const cuidadoresSchema = mongoose.Schema(
   }
 );
 
-const Enfermeros = mongoose.model("Enfermeros", cuidadoresSchema);
-module.exports = Enfermeros;
+const Enfermero = mongoose.model("Enfermeros", cuidadoresSchema);
+module.exports = Enfermero;

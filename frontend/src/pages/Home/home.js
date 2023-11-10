@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./home.scss";
 import logo from "../../assets/logo-white.png";
-import heroImg from "../../assets/undraw_doctors_p6aq.svg";
+import heroImg from "../../assets/undraw_doctors_p6aq (2).svg";
 import { ShowOnLogin, ShowOnLogout } from "../../components/protect/HiddenLink";
 
 
 const Home = () => {
     return (
       <div className="home">
-        <nav className="container --flex-between ">
+        <nav className="container ">
           <div className="logo">
             <img className="logo1" src={logo} alt="logo" />
           </div>

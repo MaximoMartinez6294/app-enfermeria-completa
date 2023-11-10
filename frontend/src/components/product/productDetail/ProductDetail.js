@@ -49,7 +49,7 @@ const ProductDetail = () => {
             <h4>Paciente: {(product.estado )}</h4 >
             <hr />
             <h4>
-              <span className="badge">Name: </span> &nbsp; {product.name}
+              <span className="badge">Nombre: </span> &nbsp; {product.name}
             </h4>
             <p>
               <b>&rarr; Estado : </b> {product.estado}
@@ -80,11 +80,11 @@ const ProductDetail = () => {
             <hr />
             <hr />
             <code className="--color-dark">
-              Created on: {product.createdAt.toLocaleString("en-US")}
+              Creado en: {product.createdAt.toLocaleString("en-US")}
             </code>
             <br />
             <code className="--color-dark">
-              Last Updated: {product.updatedAt.toLocaleString("en-US")}
+            Ultima actualización: {product.updatedAt.toLocaleString("en-US")}
             </code>
           </div>
         ) : isError ? (

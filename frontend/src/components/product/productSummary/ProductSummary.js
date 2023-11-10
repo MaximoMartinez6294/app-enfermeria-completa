@@ -6,12 +6,16 @@ import InfoBox from "../../infobox/InfoBox";
 import { useDispatch, useSelector,} from "react-redux";
 import {
   CALC_CATEGORY,
-  CALC_OUTOFSTOCK,
-  CALC_STORE_VALUE,
+
   selectCategory,
-  selectOutOfStock,
-  selectTotalStoreValue,
+
 } from "../../../redux/features/product/productSlice";
+import {
+  CALC_CATEGORY2,
+} from "../../../redux/features/cuidadores/cuidadorSlice";
+import {
+  CALC_CATEGORY3,
+} from "../../../redux/features/enfermero/enfermeroSlice";
 
 // Icons
 const earningIcon = <BsHospitalFill size={40} color="#fff" />;
@@ -24,18 +28,35 @@ export const formatNumbers = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const ProductSummary = ({ products }) => {
+const ProductSummary = ({ products, cuidadores, enfermeros }) => {
   const dispatch = useDispatch();
   const category = useSelector(selectCategory);
 
   useEffect(() => {
-
     dispatch(CALC_CATEGORY(products));
   }, [dispatch, products]);
 
+  useEffect(() => {
+    // Verificar si 'products' es un arreglo válido antes de llamar a CALC_CATEGORY2
+    if (Array.isArray(cuidadores)) {
+      dispatch(CALC_CATEGORY2(cuidadores));
+    } else {
+      console.error("El argumento de CALC_CATEGORY2 no es un arreglo válido.");
+    }
+  }, [dispatch, cuidadores]);
+
+  useEffect(() => {
+    // Verificar si 'products' es un arreglo válido antes de llamar a CALC_CATEGORY2
+    if (Array.isArray(enfermeros)) {
+      dispatch(CALC_CATEGORY3(enfermeros));
+    } else {
+      console.error("El argumento de CALC_CATEGORY2 no es un arreglo válido.");
+    }
+  }, [dispatch, enfermeros]);
+
   return (
     <div className="product-summary">
-      <h3 className="--mt">Pacientes</h3>
+      <h3 className="--mt2">GENERAL</h3>
       <div className="info-summary">
         <InfoBox
           icon={productIcon}
@@ -46,15 +67,15 @@ const ProductSummary = ({ products }) => {
         <InfoBox
           icon={earningIcon}
           title={"Enfermeros"}
-          count={` `}
+          count={enfermeros ? enfermeros.length : 0}
           bgColor="card2"
         />
         <InfoBox
-          icon={outOfStockIcon}
-          title={"Cuidadores"}
-          count={` `}
-          bgColor="card3"
-        />
+           icon={outOfStockIcon}
+            title={"Cuidadores"}
+            count={cuidadores ? cuidadores.length : 0}
+            bgColor="card3"
+          />
         <InfoBox
           icon={categoryIcon}
           title={"Todas"}

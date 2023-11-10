@@ -21,6 +21,8 @@ const filterSlice = createSlice({
   },
 });
 
+
+
 export const { FILTER_PRODUCTS } = filterSlice.actions;
 
 export const selectFilteredPoducts = (state) => state.filter.filteredProducts;

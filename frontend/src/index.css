@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600&display=swap');
+
 
 :root {
   --nav-width: 68px;
@@ -6,7 +8,7 @@
 
   --font-family: "Poppins", sans-serif;
   --dark-blue: #0a1930;
-  --light-blue: #1f93ff;
+  --light-blue: #6063ce;
 
   --color-white: #fff;
   --color-dark: #333;
@@ -81,6 +83,8 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 20px;
+  background-color: #ffffff;
 }
 
 .--dir-column {
@@ -134,7 +138,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--color-dark);
   margin-bottom: 1rem;
@@ -147,6 +151,8 @@ h2 {
 }
 h3 {
   font-size: 2.5rem;
+  margin-left: 23px;
+    margin-top: 9px;
 }
 h4 {
   font-size: 2rem;
@@ -239,6 +245,26 @@ p {
 }
 .--mt {
   margin-top: 1rem;
+  padding-top: 7px;
+}
+
+.--mt2 {
+  margin-top: 1rem;
+  padding-top: 7px;
+}
+
+@media only screen and (max-width:800px) {
+  .--mt {
+    margin-top: 1rem;
+    padding-top: 7px;
+    margin-left: 11px;
+  }
+
+  .--mt2{
+    margin-top: 1rem;
+    padding-top: 7px;
+    margin-left: 87px;
+}
 }
 
 .--my {
@@ -319,7 +345,8 @@ p {
 
 .--btn-primary {
   color: #fff;
-  background: #007bff;
+  background: #6c82ff;
+  margin-right: 41px;
 }
 .--btn-secondary {
   color: #fff;
@@ -494,6 +521,6 @@ a:hover {
 }
 .activePage {
   color: #fff;
-  background-color: var(--light-blue);
+  background-color: #6063ce;
   height: 100%;
 }

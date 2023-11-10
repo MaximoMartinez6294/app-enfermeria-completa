@@ -25,8 +25,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -65px;
+    margin-left: 770px;
     & li a {
       color: #fff;
+      
     }
     & > * {
       margin-left: 1rem;
@@ -42,6 +45,7 @@
   
   .hero-text {
     width: 50%;
+    padding-top: 32px;
     & > * {
       color: #fff;
       margin-bottom: 2rem;
@@ -63,6 +67,14 @@
     .hero {
       flex-direction: column;
     }
+
+    .home-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -56px;
+      margin-left: 285px;
+  }
   
     .hero-text {
       display: flex;
@@ -74,7 +86,7 @@
       text-align: center;
     }
     .hero-image {
-      width: 750px;
+      width: 726px;
       margin-left: 45px;
       &img {
         width: 100%;

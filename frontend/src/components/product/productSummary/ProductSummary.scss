@@ -1,8 +1,11 @@
 .product-summary {
     width: 100%;
+    background-color: #ffffff;
+    border-radius: 20px;
     .info-summary {
       display: flex;
       flex-wrap: wrap;
+      padding-left: 20px;
     }
   }
   
