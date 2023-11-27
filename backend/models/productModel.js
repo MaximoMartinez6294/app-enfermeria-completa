@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema(
   {
+    
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -38,21 +39,25 @@ const productSchema = mongoose.Schema(
       required: [true, "Porfavor agrega turnos"],
       trim: true,
     },
-    cuidadores: {
-      type: String,
-      required: [true, "Porfavor agrega cuidadores"],
-      trim: true,
-    },
+    cuidadores: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cuidadores',
+        name: String
+      }
+    ],
     ved: {
       type: String,
       required: [true, "Porfavor agrega ved"],
       trim: true,
     },
-    enfermeros: {
-      type: String,
-      required: [true, "Porfavor agrega enfermeros"],
-      trim: true,
-    },
+    enfermeros: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Enfermeros',
+        name: String
+      }
+    ],
     observaciones: {
       type: String,
       required: [true, "Porfavor agrega observaciones"],
@@ -63,11 +68,13 @@ const productSchema = mongoose.Schema(
       required: [true, "Porfavor agrega insumos"],
       trim: true,
     },
+    
   },
   {
     timestamps: true,
   }
 );
+
 
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

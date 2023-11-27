@@ -1,12 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const Product = require("../models/productModel");
 const mongoose = require("mongoose");
+const Cuidador = require("../models/cuidadoresModel");
+const Enfermero = require("../models/enfermerosModel");
 
 
-// Controlador para crear un producto
 const createProduct = asyncHandler(async (req, res) => {
-
-  // Extrae los datos del cuerpo de la solicitud
   const {
     name,
     estado,
@@ -21,50 +20,77 @@ const createProduct = asyncHandler(async (req, res) => {
     insumos,
   } = req.body;
 
-  console.log("Datos recibidos en la solicitud POST:", req.body);
-  // Validación: Comprueba si los campos requeridos están en blanco
   if (
-    !name || !name.trim() ||
-    !estado || !estado.trim() ||
-    !direccion || !direccion.trim() ||
-    !telefono || !telefono.trim() ||
-    !horasDeCuidador || !horasDeCuidador.trim() ||
-    !turnos || !turnos.trim() ||
-    !cuidadores || !cuidadores.trim() ||
-    !ved || !ved.trim() ||
-    !enfermeros || !enfermeros.trim() ||
-    !observaciones || !observaciones.trim() ||
-    !insumos || !insumos.trim()
+    !name ||
+    !estado ||
+    !direccion ||
+    !telefono ||
+    !horasDeCuidador ||
+    !turnos ||
+    !ved ||
+    !observaciones ||
+    !insumos
   ) {
-    res.status(400);
-    throw new Error("Rellena todos los campos");
+    return res.status(400).json({ error: "Rellena todos los campos obligatorios" });
   }
 
-  // Crea el producto
+
+  const cuidadoresNames = await Promise.all(
+  cuidadores.map(async (cuidadorName) => {
+    const cuidador = await Cuidador.findOne({ name: cuidadorName });
+    if (!cuidador) {
+      console.log(`Cuidador no encontrado para ${cuidadorName}`);
+      return null;
+    }
+    return cuidador._id;
+  })
+);
+  
+  const enfermerosNames = await Promise.all(
+    enfermeros.map(async (enfermeroName) => {
+      const enfermero = await Enfermero.findOne({ name: enfermeroName });
+      console.log(`Enfermero buscado para ${enfermeroName}:`, enfermero);
+      return enfermero ? enfermero._id : null;
+    })
+  );
+
   const product = await Product.create({
-    user: req.user.id, // Supongo que req.user.id contiene el ID del usuario que realiza la solicitud
+    user: req.user.id,
     name,
     estado,
     direccion,
     telefono,
     horasDeCuidador,
     turnos,
-    cuidadores,
+    cuidadores: cuidadoresNames,
     ved,
-    enfermeros,
+    enfermeros: enfermerosNames,
     observaciones,
     insumos,
   });
 
-  // Envía una respuesta con el producto creado y un código de respuesta 201 (Created)
-  res.status(201).json(product);
-});
+  // Obtener el producto recién creado con los nombres de cuidadores y enfermeros
+  const createdProduct = await Product.findById(product._id)
+    .populate({ path: 'cuidadores', select: 'name' })  // Poblar cuidadores y solo seleccionar el campo 'name'
+    .populate({ path: 'enfermeros', select: 'name' })  // Poblar enfermeros y solo seleccionar el campo 'name'
+    .exec();
 
+  res.status(201).json(createdProduct);
+});
 
 // Get all Products
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({ user: req.user.id }).sort("-createdAt");
-  res.status(200).json(products);
+
+  try {
+    const products = await Product.find()
+      .populate('cuidadores enfermeros')
+      .exec();
+
+    res.json(products);
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    res.status(500).json({ error: 'Error al obtener productos' });
+  }
 });
 
 
